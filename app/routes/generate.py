@@ -1,5 +1,5 @@
-from fastapi import APIRouter
-from fastapi.responses import JSONResponse
+from fastapi import APIRouter # type: ignore
+from fastapi.responses import JSONResponse # type: ignore
 from app.utils.captcha import generate_captcha
 
 router = APIRouter()

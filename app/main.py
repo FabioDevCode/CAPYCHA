@@ -1,10 +1,17 @@
-from fastapi import FastAPI
-from app.routes import generate
+from fastapi import FastAPI # type: ignore
+from sqlmodel import SQLModel, create_engine # type: ignore
 
-from sqlmodel import SQLModel, create_engine
-from app.models.base import CaptchaChallenge  # important pour que le modèle soit enregistré
+from app.routes import api_router
 
-app = FastAPI(title="CAPTCHA Service API")
+app = FastAPI(
+    title="CAPYCHA",
+    version="1.0.0",
+    description="CAPYCHA est un service de Captcha.",
+    redoc_url=None,
+    swagger_ui_parameters={
+        "defaultModelsExpandDepth": -1,
+    }
+)
 
 # === Database config ===
 DATABASE_URL = "sqlite:///./captcha.db"
@@ -16,4 +23,5 @@ def init_db():
 init_db()
 
 # === Routers ===
-app.include_router(generate.router, prefix="/generate", tags=["captcha"])
+app.include_router(api_router)
+
